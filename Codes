@@ -1,0 +1,94 @@
+
+players = []
+
+questions = [
+    {
+        "question": "Which language is used for AI?",
+        "options": ["1. Python", "2. HTML", "3. CSS", "4. SQL"],
+        "answer": 1
+    },
+    {
+        "question": "What is the output of 5 ** 2?",
+        "options": ["1. 10", "2. 25", "3. 15", "4. 20"],
+        "answer": 2
+    },
+    {
+        "question": "Which data type stores True or False?",
+        "options": ["1. int", "2. str", "3. bool", "4. list"],
+        "answer": 3
+    },
+    {
+        "question": "Which symbol is used for comments in Python?",
+        "options": ["1. //", "2. #", "3. <!--", "4. **"],
+        "answer": 2
+    },
+    {
+        "question": "Which function gives the length of a list?",
+        "options": ["1. count()", "2. size()", "3. len()", "4. total()"],
+        "answer": 3
+    }
+]
+
+while True:
+    print("\n===== QUIZ COMPETITION =====")
+    print("1. Start Quiz")
+    print("2. View Leaderboard")
+    print("3. Exit")
+
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+        name = input("Enter player name: ")
+        score = 0
+
+        for q in questions:
+            print("\n" + q["question"])
+
+            for option in q["options"]:
+                print(option)
+
+            try:
+                answer = int(input("Enter option number: "))
+            except ValueError:
+                answer = 0
+
+            if answer == q["answer"]:
+                print("Correct answer!")
+                score += 10
+            else:
+                print("Incorrect answer!")
+
+        print("\nQuiz completed!")
+        print("Player:", name)
+        print("Final score:", score, "/", len(questions) * 10)
+
+        players.append({
+            "name": name,
+            "score": score
+        })
+
+    elif choice == "2":
+        if len(players) == 0:
+            print("No players yet.")
+        else:
+            players.sort(
+                key=lambda p: p["score"],
+                reverse=True
+            )
+
+            print("\n===== LEADERBOARD =====")
+
+            rank = 1
+            for p in players:
+                print(
+                    rank, ".", p["name"],
+                    "- Score:", p["score"]
+                )
+                rank += 1
+
+    elif choice == "3":
+        print("Quiz system closed.")
+        break
+
+    else:
+        print("Invalid choice!")
